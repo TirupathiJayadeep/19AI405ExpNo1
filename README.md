@@ -1,12 +1,6 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name: Saravanan N</h3>
-<h3>Register Number/Staff Id: TSML006</h3>
-
-
 <h3>AIM:</h3>
-<br>
 <p>To find the PEAS description for the given AI problem and develop an AI agent.</p>
-<br>
 <h3>Theory</h3>
 <h3>Medicine prescribing agent:</h3>
 <p>Such this agent prescribes medicine for fever (greater than 98.5 degrees) which we consider here as unhealthy, by the user temperature input, and another environment is rooms in the hospital (two rooms). This agent has to consider two factors one is room location and an unhealthy patient in a random room, the agent has to move from one room to another to check and treat the unhealthy person. The performance of the agent is calculated by incrementing performance and each time after treating in one room again it has to check another room so that the movement causes the agent to reduce its performance. Hence, agents prescribe medicine to unhealthy.</p>
@@ -40,3 +34,60 @@
 <p>Treat unhealthy patients in each room. And check for the unhealthy patients in random room</p>
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
+
+
+### DEVELOPED BY : Tirupathi Jayadeep
+ ### REG NO: 2122232401169
+```python
+import random
+
+class HospitalEnvironment:
+    def __init__(self):
+        # Two rooms: Room1 and Room2 with random patient temperatures
+        self.rooms = {"Room1": random.uniform(97, 102),
+                      "Room2": random.uniform(97, 102)}
+
+class MedicinePrescribingAgent:
+    def __init__(self, environment):
+        self.env = environment
+        self.location = "Room1"   # Start in Room1
+        self.performance = 0
+
+    def sense(self):
+        return self.env.rooms[self.location]
+
+    def prescribe(self, temp):
+        if temp > 98.5:
+            print(f"[{self.location}] Temp={temp:.1f} → Prescribed Medicine ✅")
+            self.performance += 1
+        else:
+            print(f"[{self.location}] Temp={temp:.1f} → No medicine needed")
+        return
+
+    def move(self):
+        # Switch between rooms
+        self.location = "Room2" if self.location == "Room1" else "Room1"
+        self.performance -= 0.1
+        print(f"Moved to {self.location} (-0.1 penalty)")
+
+    def run(self, steps=5):
+        for _ in range(steps):
+            temp = self.sense()
+            self.prescribe(temp)
+            self.move()
+        print("\nFinal Performance Score:", self.performance)
+
+# --- Simulation Run ---
+hospital = HospitalEnvironment()
+agent = MedicinePrescribingAgent(hospital)
+agent.run(steps=6)
+
+
+```
+## OUTPUT :
+<img width="584" height="548" alt="Screenshot 2025-08-19 103414" src="https://github.com/user-attachments/assets/a76dc88f-329f-4bd7-86cf-5ed2e061197c" />
+
+
+## RESULT :
+Thus the Developing AI Agent with PEAS Description was implemented using python programming.
+
